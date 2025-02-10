@@ -21,7 +21,7 @@
 
 	<script>
 		function fetchCardsWithFortunes() {
-			fetch("http://https://176.38.176.139:8000/cards_with_fortunes")
+			fetch("http://176.38.176.139:8000/cards_with_fortunes")
 				.then(response => response.json())
 				.then(cards => {
 					const tableBody = document.querySelector("#cardsTable tbody");
