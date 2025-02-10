@@ -21,7 +21,7 @@
 
 	<script>
 		function fetchCardsWithFortunes() {
-			fetch("https://localhost:8000/cards_with_fortunes")
+			fetch("/cards_with_fortunes")
 				.then(response => response.json())
 				.then(cards => {
 					const tableBody = document.querySelector("#cardsTable tbody");
