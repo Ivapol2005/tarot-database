@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>List of cards</title>
+</head>
+<body>
+	<h2>List of cards:</h2>
+	<table id="cardsTable" border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Fortune</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Data is here -->
+		</tbody>
+	</table>
+
+	<script>
+		function fetchCardsWithFortunes() {
+			fetch("http://localhost:8000/cards_with_fortunes")
+				.then(response => response.json())
+				.then(cards => {
+					const tableBody = document.querySelector("#cardsTable tbody");
+					tableBody.innerHTML = "";
+
+					cards.forEach(card => {
+						card.fortunes.forEach((fortune, index) => {
+							const row = document.createElement("tr");
+
+							if (index === 0) {
+								row.innerHTML = `
+									<td rowspan="${card.fortunes.length}">${card.cardid}</td>
+									<td rowspan="${card.fortunes.length}">${card.cardname}</td>
+									<td>${fortune.cardifreversed ? "Reversed: " : ""}${fortune.cardfortune}</td>
+								`;
+							} else {
+								row.innerHTML = `
+									<td>${fortune.cardifreversed ? "Reversed: " : ""}${fortune.cardfortune}</td>
+								`;
+							}
+
+							tableBody.appendChild(row);
+						});
+					});
+				})
+				.catch(error => console.error("Data fetching issue:", error));
+		}
+
+		fetchCardsWithFortunes();
+	</script>
+</body>
+</html>
